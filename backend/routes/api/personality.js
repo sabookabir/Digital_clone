@@ -27,8 +27,7 @@ router.post('/analyze', async (req, res) => {
         { role: 'system', content: 'You are an advanced digital clone analyzer. Return ONLY clean JSON.' },
         { role: 'user', content: prompt }
       ],
-      model: "llama3-70b-8192", // More standard model for better compatibility
-      response_format: { type: "json_object" }
+      model: "llama3-70b-8192" // Removed response_format for better compatibility
     });
 
     const data = JSON.parse(completion.choices[0].message.content);
@@ -47,7 +46,7 @@ router.post('/analyze', async (req, res) => {
     console.error('--- PERSONALITY ANALYSIS CRITICAL FAILURE ---');
     console.error('Error Message:', err.message);
     if (err.response) console.error('Appwrite Response:', JSON.stringify(err.response));
-    res.status(500).send('Analysis Failed');
+    res.status(500).send('Analysis Failed [NEURAL-X99]');
   }
 });
 

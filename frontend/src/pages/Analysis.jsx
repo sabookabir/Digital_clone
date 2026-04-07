@@ -73,6 +73,7 @@ function Analysis() {
   };
 
   const submitAnalysis = async (finalAnswers) => {
+    console.log('>>> SYSTEM: Attempting to call Backend at:', `${API_BASE_URL}/api/personality/analyze`);
     setLoading(true);
     try {
       await axios.post(`${API_BASE_URL}/api/personality/analyze`, {

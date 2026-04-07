@@ -78,7 +78,7 @@ function Analysis() {
       await axios.post(`${API_BASE_URL}/api/personality/analyze`, {
         userId: user.$id,
         answers: finalAnswers
-      });
+      }, { timeout: 60000 });
       navigate('/dashboard');
     } catch (err) {
       console.error('Analysis saving failed:', err);

@@ -82,7 +82,8 @@ function Analysis() {
       navigate('/dashboard');
     } catch (err) {
       console.error('Analysis saving failed:', err);
-      alert('Neural link failed at the final stage. Please retry.');
+      const errMsg = err.response?.data || err.message || 'Unknown Network Error';
+      alert(`NEURAL SYSTEM ERROR: ${errMsg}\n\nPlease check if your backend is awake.`);
     }
     setLoading(false);
   };

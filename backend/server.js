@@ -13,12 +13,16 @@ console.log('APPWRITE_PROJECT_ID detected:', !!process.env.APPWRITE_PROJECT_ID);
 console.log('APPWRITE_API_KEY detected:', !!process.env.APPWRITE_API_KEY);
 console.log('-------------------------------');
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // We'll stick to wildcard for now but log everything
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Global Request Logger for Diagnostics
 app.use((req, res, next) => {
-  console.log(`>>> Incoming Request: ${req.method} ${req.url}`);
+  console.log(`>>> Incoming Request: ${req.method} ${req.url} from ${req.headers.origin || 'Unknown'}`);
   next();
 });
 

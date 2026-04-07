@@ -5,6 +5,14 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+console.log('--- Startup Environment Check ---');
+console.log('PORT:', process.env.PORT);
+console.log('GROQ_API_KEY detected:', !!process.env.GROQ_API_KEY);
+console.log('APPWRITE_ENDPOINT detected:', !!process.env.APPWRITE_ENDPOINT);
+console.log('APPWRITE_PROJECT_ID detected:', !!process.env.APPWRITE_PROJECT_ID);
+console.log('APPWRITE_API_KEY detected:', !!process.env.APPWRITE_API_KEY);
+console.log('-------------------------------');
+
 app.use(cors());
 app.use(express.json());
 

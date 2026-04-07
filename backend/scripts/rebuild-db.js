@@ -54,7 +54,12 @@ async function rebuild() {
     for (const col of collections) {
         try {
             console.log(`\nCreating Collection: ${col.name} (${col.id})...`);
-            await databases.createCollection(DB_ID, col.id, col.name);
+            await databases.createCollection(
+                DB_ID, 
+                col.id, 
+                col.name,
+                ['read("any")', 'create("any")', 'update("any")', 'delete("any")'] // MASTER PERMISSIONS
+            );
             
             for (const attr of col.attrs) {
                 console.log(`  - Adding attribute: ${attr.key}...`);

@@ -37,7 +37,10 @@ router.post('/analyze', async (req, res) => {
 
     res.json(data);
   } catch (err) {
-    console.error('Personality Error:', err.message);
+    console.error('--- PERSONALITY ANALYSIS CRITICAL FAILURE ---');
+    console.error('Error Message:', err.message);
+    if (err.response) console.error('Appwrite Response:', JSON.stringify(err.response));
+    if (err.stack) console.error('Stack Trace:', err.stack);
     res.status(500).send('Analysis Failed');
   }
 });

@@ -27,7 +27,7 @@ router.post('/analyze', async (req, res) => {
         { role: 'system', content: 'You are an advanced digital clone analyzer. Return ONLY clean JSON.' },
         { role: 'user', content: prompt }
       ],
-      model: "llama3-70b-8192" // Removed response_format for better compatibility
+      model: "llama-3.3-70b-versatile" 
     });
 
     const data = JSON.parse(completion.choices[0].message.content);

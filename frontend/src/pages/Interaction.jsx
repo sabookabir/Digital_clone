@@ -4,6 +4,7 @@ import GlassCard from '../components/GlassCard';
 import Avatar3D from '../components/Avatar3D';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE_URL } from '../config';
 
 function Interaction() {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ function Interaction() {
 
   useEffect(() => {
     if (!user) return;
-    axios.get(`http://localhost:5000/api/chat/history/${user.$id}`)
+    axios.get(`${API_BASE_URL}/api/chat/history/${user.$id}`)
       .then(res => setMessages(res.data))
       .catch(err => console.log('No history, or server off.'));
   }, [user]);
@@ -25,7 +26,7 @@ function Interaction() {
     setMessages(prev => [...prev, { role: 'user', content: msg }]);
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/chat/message', 
+      const res = await axios.post(`${API_BASE_URL}/api/chat/message`, 
         { message: msg, userId: user.$id },
         { timeout: 60000 }
       );

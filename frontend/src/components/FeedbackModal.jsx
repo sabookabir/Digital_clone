@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 import GlassCard from './GlassCard';
 
 function FeedbackModal() {
@@ -12,7 +13,7 @@ function FeedbackModal() {
     e.preventDefault();
     setStatus('Submitting...');
     try {
-        await fetch('http://localhost:5000/api/feedback', {
+        await fetch(`${API_BASE_URL}/api/feedback`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type, message })

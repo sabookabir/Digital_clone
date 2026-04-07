@@ -4,6 +4,7 @@ import axios from 'axios';
 import GlassCard from '../components/GlassCard';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { API_BASE_URL } from '../config';
 
 const QUESTIONS = [
   {
@@ -74,7 +75,7 @@ function Analysis() {
   const submitAnalysis = async (finalAnswers) => {
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/personality/analyze', {
+      await axios.post(`${API_BASE_URL}/api/personality/analyze`, {
         userId: user.$id,
         answers: finalAnswers
       });

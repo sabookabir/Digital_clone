@@ -50,7 +50,10 @@ router.post('/analyze', async (req, res) => {
   } catch (err) {
     console.error('--- PERSONALITY ANALYSIS CRITICAL FAILURE ---');
     console.error('Error Message:', err.message);
-    res.status(500).send('Analysis Failed [NEURAL-X99]');
+    console.error('Error Code:', err.code);
+    console.error('Error Type:', err.type);
+    if (err.response) console.error('Full Appwrite Response:', JSON.stringify(err.response));
+    res.status(500).send(`Analysis Failed [NEURAL-X99] (Code: ${err.code})`);
   }
 });
 

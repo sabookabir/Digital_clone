@@ -27,10 +27,15 @@ router.post('/analyze', async (req, res) => {
         { role: 'system', content: 'You are an advanced digital clone analyzer. Return ONLY clean JSON.' },
         { role: 'user', content: prompt }
       ],
-      model: "llama-3.3-70b-versatile" 
+      model: "llama-3.3-70b-versatile",
+      response_format: { type: "json_object" }
     });
 
-    const data = JSON.parse(completion.choices[0].message.content);
+    let rawContent = completion.choices[0].message.content;
+    // Clean markdown if present
+    rawContent = rawContent.replace(/```json/g, '').replace(/```/g, '').trim();
+    
+    const data = JSON.parse(rawContent);
     console.log('AI Analysis complete:', data.vibe);
 
     // Save to Appwrite PersonalityData
@@ -45,7 +50,6 @@ router.post('/analyze', async (req, res) => {
   } catch (err) {
     console.error('--- PERSONALITY ANALYSIS CRITICAL FAILURE ---');
     console.error('Error Message:', err.message);
-    if (err.response) console.error('Appwrite Response:', JSON.stringify(err.response));
     res.status(500).send('Analysis Failed [NEURAL-X99]');
   }
 });
